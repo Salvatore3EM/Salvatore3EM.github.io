@@ -9,15 +9,17 @@
       background-color: white;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       height: 100vh;
-      font-size: 3em;
+      font-size: 1.5em;
       margin: 0;
-      padding: 1rem;
+      padding: 2rem 1rem;
     }
     .code-container {
       position: relative;
+      width: 100%;
+      max-width: 800px;
     }
     .copy-btn {
       position: absolute;
@@ -26,36 +28,41 @@
       z-index: 1;
     }
     pre {
-      white-space: pre-wrap; /* va a capo se serve */
+      white-space: pre-wrap;
       word-break: break-word;
+      font-size: 1em;
     }
   </style>
 </head>
-<img src="blu.webp" alt="logo" height="50px">
-<body class="p-4">
+<body>
 
-    <div class="code-container mb-3">
-        <button class="btn btn-sm btn-outline-secondary copy-btn" onclick="copyCode()">Copy</button>
-        <pre class="bg-light border rounded p-3"><code id="codeBlock"></code></pre>
-    </div>
-    <script>
-        const rawPath = window.location.pathname.slice(1);
+  <img src="blu.webp" alt="logo" height="50px" class="mb-4">
 
-        const formatted = decodeURIComponent(rawPath)
-        .replaceAll('__', '<br>')  // doppio underscore = a capo
-        .replaceAll('_', ' ');     // singolo underscore = spazio
+  <div class="code-container mb-3">
+    <button class="btn btn-sm btn-outline-secondary copy-btn" onclick="copyCode()">Copy</button>
+    <pre class="bg-light border rounded p-3"><code id="codeBlock"></code></pre>
+  </div>
 
-        document.getElementById('codeBlock').innerHTML = formatted || "Nessun parametro nel path";
-        
-        function copyCode() {
-            const code = document.getElementById("codeBlock").innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                const btn = document.querySelector('.copy-btn');
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = "Copy", 2000);
-            });
-        }
-    </script>
+  <script>
+    const rawPath = window.location.pathname.slice(1);
+
+    const formatted = decodeURIComponent(rawPath)
+      .replaceAll('__', '\n')  // doppio underscore = newline
+      .replaceAll('_', ' ');   // singolo underscore = spazio
+
+    // Visualizzazione nel codeblock (HTML-escaped)
+    const codeElement = document.getElementById('codeBlock');
+    codeElement.textContent = formatted || "Nessun parametro nel path";
+
+    function copyCode() {
+      navigator.clipboard.writeText(codeElement.textContent).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = "Copied!";
+        setTimeout(() => btn.textContent = "Copy", 2000);
+      });
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </html>
