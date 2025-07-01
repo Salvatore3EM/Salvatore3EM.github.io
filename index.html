@@ -48,7 +48,7 @@
         .replaceAll('_', ' ');     // singolo underscore = spazio
 
         // Mostra il risultato
-        document.getElementById('output').innerHTML = formatted || "Nessun parametro nel path";
+        document.getElementById('codeBlock').innerHTML = formatted || "Nessun parametro nel path";
         
         function copyCode() {
             navigator.clipboard.writeText(code).then(() => {
