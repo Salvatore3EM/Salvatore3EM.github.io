@@ -39,24 +39,21 @@
         <pre class="bg-light border rounded p-3"><code id="codeBlock"></code></pre>
     </div>
     <script>
-        // Ottieni il path (senza "/ iniziale")
         const rawPath = window.location.pathname.slice(1);
 
-        // Decodifica e applica le sostituzioni
         const formatted = decodeURIComponent(rawPath)
         .replaceAll('__', '<br>')  // doppio underscore = a capo
         .replaceAll('_', ' ');     // singolo underscore = spazio
 
-        // Mostra il risultato
         document.getElementById('codeBlock').innerHTML = formatted || "Nessun parametro nel path";
         
         function copyCode() {
+            const code = document.getElementById("codeBlock").innerText;
             navigator.clipboard.writeText(code).then(() => {
-            const btn = document.querySelector('.copy-btn');
-            btn.textContent = "Copied!";
-            setTimeout(() => btn.textContent = "Copy", 2000);
-            });const code = document.getElementById("codeBlock").innerText;
-        
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = "Copied!";
+                setTimeout(() => btn.textContent = "Copy", 2000);
+            });
         }
     </script>
 </body>
