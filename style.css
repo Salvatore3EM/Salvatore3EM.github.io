@@ -1,0 +1,41 @@
+
+body {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 2rem 1rem;
+}
+.code-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 1;
+    font-size: 2em;
+}
+pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 4em;
+}
+.share-btn {
+    font-size: 2em;
+}
+
+.custom-title {
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
