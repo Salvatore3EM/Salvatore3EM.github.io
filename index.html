@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Leggi URL Path</title>
+  <title>Messaggio</title>
+  <style>
+    body {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-size: 3em;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
-  <h1>Test</h1>
-  <p id="output"></p>
+  <div id="output">Caricamento...</div>
 
   <script>
-    // Ottieni il path dopo il dominio, rimuove il primo "/" e sostituisce "_" con spazio
-    const path = window.location.pathname.slice(1).replaceAll('_', ' ');
-
-    // Se c'è qualcosa da mostrare, lo inserisce nel paragrafo
-    if (path) {
-      document.getElementById('output').textContent = decodeURIComponent(path);
-    } else {
-      document.getElementById('output').textContent = "Nessun parametro nel path";
-    }
+    const params = new URLSearchParams(window.location.search);
+    const text = params.get("text");
+    document.getElementById("output").innerText = text || "Nessun testo fornito.";
   </script>
 </body>
 </html>
