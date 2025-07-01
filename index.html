@@ -31,24 +31,34 @@
     }
   </style>
 </head>
+<img src="blu.webp" alt="logo" height="50px">
 <body class="p-4">
-    <img src="blu.webp" alt="logo" height="50px">
 
-  <div class="code-container mb-3">
-    <button class="btn btn-sm btn-outline-secondary copy-btn" onclick="copyCode()">Copy</button>
-    <pre class="bg-light border rounded p-3"><code id="codeBlock"></code></pre>
-  </div>
+    <div class="code-container mb-3">
+        <button class="btn btn-sm btn-outline-secondary copy-btn" onclick="copyCode()">Copy</button>
+        <pre class="bg-light border rounded p-3"><code id="codeBlock"></code></pre>
+    </div>
+    <script>
+        // Ottieni il path (senza "/ iniziale")
+        const rawPath = window.location.pathname.slice(1);
 
-  <script>
-    function copyCode() {
-      const code = document.getElementById("codeBlock").innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        const btn = document.querySelector('.copy-btn');
-        btn.textContent = "Copied!";
-        setTimeout(() => btn.textContent = "Copy", 2000);
-      });
-    }
-  </script>
+        // Decodifica e applica le sostituzioni
+        const formatted = decodeURIComponent(rawPath)
+        .replaceAll('__', '<br>')  // doppio underscore = a capo
+        .replaceAll('_', ' ');     // singolo underscore = spazio
 
+        // Mostra il risultato
+        document.getElementById('output').innerHTML = formatted || "Nessun parametro nel path";
+        
+        function copyCode() {
+            navigator.clipboard.writeText(code).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = "Copied!";
+            setTimeout(() => btn.textContent = "Copy", 2000);
+            });const code = document.getElementById("codeBlock").innerText;
+        
+        }
+    </script>
+</body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </html>
