@@ -13,8 +13,8 @@ function copyCode() {
 
     navigator.clipboard.writeText(code).then(() => {
         const btn = document.querySelector('.copy-btn');
-        btn.textContent = "Copied!";
-        setTimeout(() => btn.textContent = "Copy", 2000);
+        btn.textContent = "Copiato!";
+        setTimeout(() => btn.innerHTML = "<i class='fa-solid fa-copy'></i> Copia", 2000);
     });
 }
 
