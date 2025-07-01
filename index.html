@@ -2,26 +2,53 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Messaggio</title>
+  <title>QrCode reader</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
   <style>
     body {
       background-color: white;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
       height: 100vh;
       font-size: 3em;
       margin: 0;
+      padding: 1rem;
+    }
+    .code-container {
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      z-index: 1;
+    }
+    pre {
+      white-space: pre-wrap; /* va a capo se serve */
+      word-break: break-word;
     }
   </style>
 </head>
-<body>
-  <div id="output">Caricamento...</div>
+<body class="p-4">
+    <img src="blu.webp" alt="logo" height="50px">
+
+  <div class="code-container mb-3">
+    <button class="btn btn-sm btn-outline-secondary copy-btn" onclick="copyCode()">Copy</button>
+    <pre class="bg-light border rounded p-3"><code id="codeBlock"></code></pre>
+  </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const text = params.get("text");
-    document.getElementById("output").innerText = text || "Nessun testo fornito.";
+    function copyCode() {
+      const code = document.getElementById("codeBlock").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = "Copied!";
+        setTimeout(() => btn.textContent = "Copy", 2000);
+      });
+    }
   </script>
-</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </html>
