@@ -3,7 +3,7 @@ const rawText = params.get('text');
 
 if (rawText) {
     const formatted = parseFormattedText(rawText);
-    document.getElementById('codeBlock').innerHTML = formatted;
+    document.getElementById('codeBlock').innerHTML = parseFormattedText(rawText);
 } else {
     document.getElementById('codeBlock').textContent = "Errore";
 }
@@ -36,19 +36,20 @@ function shareText() {
 }
 
 function parseFormattedText(raw) {
+  // 1) decodifica URI
   let text = decodeURIComponent(raw);
-
-  // Sostituzioni base
+  
+  // 2) esegui le tue formattazioni di markdown-like
   text = text.replaceAll('__', '\n').replaceAll('_', ' ');
-
-  // Ordine: grassetto → corsivo → sottolineato → titolo
   text = text.replace(/\*(.+?)\*/g, '<strong>$1</strong>');
   text = text.replace(/-(.+?)-/g, '<em>$1</em>');
   text = text.replace(/\$(.+?)\$/g, '<u>$1</u>');
   text = text.replace(/#(.+?)#/g, '<span class="custom-title">$1</span>');
-
-  // A capo visivo
   text = text.replace(/\n/g, '<br>');
-
-  return text;
+  
+  // 3) sanitizza il risultato
+  return DOMPurify.sanitize(text, {
+    ALLOWED_TAGS: ['strong','em','u','span','br'],
+    ALLOWED_ATTR: ['class']
+  });
 }
